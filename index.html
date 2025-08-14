@@ -797,12 +797,12 @@
         document.getElementById(
           "totalAmount"
         ).textContent = `${getCurrency()}${total.toFixed(2)}`;
-
+        
         // Add event listeners to remove buttons
-        document.querySelectorAll(".remove-btn").forEach((button) => {
-          button.addEventListener("click", function () {
-            const index = parseInt(this.getAttribute("data-index"));
-            if (confirm("Are you sure you want to remove this item?")) {
+        document.querySelectorAll('.remove-btn').forEach(button => {
+          button.addEventListener('click', function() {
+            const index = parseInt(this.getAttribute('data-index'));
+            if (confirm('Are you sure you want to remove this item?')) {
               products.splice(index, 1);
               updateProductList();
             }
@@ -962,19 +962,15 @@
 
           // Build business details
           let businessDetails = "";
-
+          
           // Business name as H1
-          businessDetails += `<h1 style="text-align:center;margin:0;color:${headerColor};">${escapeHtml(
-            business
-          )}</h1>`;
-
+          businessDetails += `<h1 style="text-align:center;margin:0;color:${headerColor};">${escapeHtml(business)}</h1>`;
+          
           // Business slogan if exists
           if (businessSlogan) {
-            businessDetails += `<p style="text-align:center;margin:5px 0;font-style:italic;color:${textColor};">${escapeHtml(
-              businessSlogan
-            )}</p>`;
+            businessDetails += `<p style="text-align:center;margin:5px 0;font-style:italic;color:${textColor};">${escapeHtml(businessSlogan)}</p>`;
           }
-
+          
           // Business address details
           let addressParts = [];
           if (businessAddress1) addressParts.push(escapeHtml(businessAddress1));
@@ -983,9 +979,7 @@
           if (businessEmail) addressParts.push(escapeHtml(businessEmail));
 
           if (addressParts.length > 0) {
-            businessDetails += `<p style="text-align:center;margin:5px 0;color:${textColor};">${addressParts.join(
-              " | "
-            )}</p>`;
+            businessDetails += `<p style="text-align:center;margin:5px 0;color:${textColor};">${addressParts.join(" | ")}</p>`;
           }
 
           let customerHtml = `<strong>${escapeHtml(customerName)}</strong><br>`;
@@ -1089,22 +1083,22 @@
       document.getElementById("downloadPdf").onclick = function () {
         const invoice = document.getElementById("invoiceOutput");
         const bgColor = document.getElementById("bgColor").value || "#ffffff";
-
+        
         const opt = {
           margin: 0,
           filename: "document.pdf",
           image: { type: "jpeg", quality: 0.98 },
           html2canvas: { scale: 2 },
           jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-          pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
         };
-
+        
         // Apply background color to the container
-        const container = document.querySelector("#invoiceOutput");
+        const container = document.querySelector('#invoiceOutput');
         if (container) {
           container.style.background = bgColor;
         }
-
+        
         html2pdf().set(opt).from(invoice).save();
       };
 
