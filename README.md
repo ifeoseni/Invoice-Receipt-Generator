@@ -1,7 +1,7 @@
 # Professional Invoice & Receipt Generator
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/invoice-generator.svg?style=social&label=Star)]([https://github.com/ifeoseni/Invoice-Receipt-Generator](https://github.com/ifeoseni/Invoice-Receipt-Generator))
+[![GitHub stars](https://img.shields.io/github/stars/ifeoseni/Invoice-Receipt-Generator.svg?style=social&label=Star)](https://github.com/ifeoseni/Invoice-Receipt-Generator)
 
 A powerful, feature-rich web-based invoice and receipt generator that creates professional documents without storing any data. Perfect for businesses, freelancers, and entrepreneurs who need to create stunning financial documents quickly.
 
@@ -78,3 +78,5 @@ This application leverages modern web technologies:
 - Chrome, Firefox, Safari, Edge (latest versions)
 - Mobile responsive design for tablets and smartphones
 - Print optimization for professional output
+
+## 📁 File Structure
