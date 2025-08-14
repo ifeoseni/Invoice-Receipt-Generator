@@ -202,6 +202,22 @@
         margin-right: 5px;
       }
 
+      /* Remove Button */
+      .remove-btn {
+        background: #e74c3c;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        margin-left: 5px;
+      }
+
+      .remove-btn:hover {
+        background: #c0392b;
+      }
+
       /* Print Styles */
       @media print {
         body * {
@@ -220,6 +236,7 @@
           margin: 0 !important;
           border: 3px double #000 !important;
           background: white !important;
+          min-height: 100vh;
         }
         @page {
           margin: 0.7cm;
@@ -249,6 +266,14 @@
           <div class="form-group">
             <label>Business Name</label>
             <input type="text" id="businessName" placeholder="Your Company" />
+          </div>
+          <div class="form-group">
+            <label>Business Slogan (Italic)</label>
+            <input
+              type="text"
+              id="businessSlogan"
+              placeholder="Your business motto"
+            />
           </div>
           <div class="form-group">
             <label>Logo (Optional)</label>
@@ -293,6 +318,44 @@
               type="text"
               id="customerAddress"
               placeholder="Lagos, Nigeria"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Business Details -->
+      <div class="grid-2" style="margin: 25px 0">
+        <div>
+          <h3>🏢 Business Address</h3>
+          <div class="form-group">
+            <label>Address Line 1</label>
+            <input
+              type="text"
+              id="businessAddress1"
+              placeholder="123 Business Street"
+            />
+          </div>
+          <div class="form-group">
+            <label>Address Line 2 (Optional)</label>
+            <input type="text" id="businessAddress2" placeholder="Suite 456" />
+          </div>
+        </div>
+        <div>
+          <h3>📞 Contact Information</h3>
+          <div class="form-group">
+            <label>Business Phone</label>
+            <input
+              type="text"
+              id="businessPhone"
+              placeholder="+234 801 234 5678"
+            />
+          </div>
+          <div class="form-group">
+            <label>Business Email</label>
+            <input
+              type="email"
+              id="businessEmail"
+              placeholder="info@company.com"
             />
           </div>
         </div>
@@ -365,6 +428,7 @@
             <th>Qty</th>
             <th>Unit Price</th>
             <th>Total</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody id="productList"></tbody>
@@ -514,6 +578,23 @@
               <div class="customization-description">
                 Changes the visual style of document borders
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Customization -->
+        <div class="customization-section">
+          <h3>Footer Message</h3>
+          <p>Customize the thank you message at the bottom of your document</p>
+          <div class="form-group">
+            <label>Thank You Message</label>
+            <input
+              type="text"
+              id="thankYouMessage"
+              value="Thank you for your trust and business!"
+            />
+            <div class="customization-description">
+              This message appears at the bottom of your document
             </div>
           </div>
         </div>
@@ -702,19 +783,31 @@
         const tbody = document.getElementById("productList");
         tbody.innerHTML = "";
         let total = 0;
-        products.forEach((p) => {
+        products.forEach((p, index) => {
           const tr = document.createElement("tr");
           tr.innerHTML = `
       <td>${escapeHtml(p.name)}</td>
       <td>${p.qty}</td>
       <td>${getCurrency()}${p.price.toFixed(2)}</td>
-      <td>${getCurrency()}${p.itemTotal.toFixed(2)}</td>`;
+      <td>${getCurrency()}${p.itemTotal.toFixed(2)}</td>
+      <td><button class="remove-btn" data-index="${index}">Remove</button></td>`;
           tbody.appendChild(tr);
           total += p.itemTotal;
         });
         document.getElementById(
           "totalAmount"
         ).textContent = `${getCurrency()}${total.toFixed(2)}`;
+
+        // Add event listeners to remove buttons
+        document.querySelectorAll(".remove-btn").forEach((button) => {
+          button.addEventListener("click", function () {
+            const index = parseInt(this.getAttribute("data-index"));
+            if (confirm("Are you sure you want to remove this item?")) {
+              products.splice(index, 1);
+              updateProductList();
+            }
+          });
+        });
       }
 
       function clearForm() {
@@ -773,6 +866,11 @@
           // Store current form values for potential editing
           window.formValues = {
             businessName: document.getElementById("businessName").value,
+            businessSlogan: document.getElementById("businessSlogan").value,
+            businessAddress1: document.getElementById("businessAddress1").value,
+            businessAddress2: document.getElementById("businessAddress2").value,
+            businessPhone: document.getElementById("businessPhone").value,
+            businessEmail: document.getElementById("businessEmail").value,
             customerName: document.getElementById("customerName").value,
             customerEmail: document.getElementById("customerEmail").value,
             customerPhone: document.getElementById("customerPhone").value,
@@ -786,6 +884,7 @@
             logoAlign: document.getElementById("logoAlign").value,
             products: [...products],
             selectedStyle: selectedStyle,
+            thankYouMessage: document.getElementById("thankYouMessage").value,
           };
 
           // Get customization values
@@ -807,9 +906,22 @@
           const headerSize = document.getElementById("headerSize").value;
           const borderWidth = document.getElementById("borderWidth").value;
           const borderStyle = document.getElementById("borderStyle").value;
+          const thankYouMessage =
+            document.getElementById("thankYouMessage").value ||
+            "Thank you for your trust and business!";
 
           const business =
             document.getElementById("businessName").value || "Your Business";
+          const businessSlogan =
+            document.getElementById("businessSlogan").value || "";
+          const businessAddress1 =
+            document.getElementById("businessAddress1").value || "";
+          const businessAddress2 =
+            document.getElementById("businessAddress2").value || "";
+          const businessPhone =
+            document.getElementById("businessPhone").value || "";
+          const businessEmail =
+            document.getElementById("businessEmail").value || "";
           const customerName =
             document.getElementById("customerName").value || "Client";
           const customerEmail =
@@ -848,6 +960,34 @@
     </div>`;
           }
 
+          // Build business details
+          let businessDetails = "";
+
+          // Business name as H1
+          businessDetails += `<h1 style="text-align:center;margin:0;color:${headerColor};">${escapeHtml(
+            business
+          )}</h1>`;
+
+          // Business slogan if exists
+          if (businessSlogan) {
+            businessDetails += `<p style="text-align:center;margin:5px 0;font-style:italic;color:${textColor};">${escapeHtml(
+              businessSlogan
+            )}</p>`;
+          }
+
+          // Business address details
+          let addressParts = [];
+          if (businessAddress1) addressParts.push(escapeHtml(businessAddress1));
+          if (businessAddress2) addressParts.push(escapeHtml(businessAddress2));
+          if (businessPhone) addressParts.push(escapeHtml(businessPhone));
+          if (businessEmail) addressParts.push(escapeHtml(businessEmail));
+
+          if (addressParts.length > 0) {
+            businessDetails += `<p style="text-align:center;margin:5px 0;color:${textColor};">${addressParts.join(
+              " | "
+            )}</p>`;
+          }
+
           let customerHtml = `<strong>${escapeHtml(customerName)}</strong><br>`;
           if (customerAddress)
             customerHtml += `${escapeHtml(customerAddress)}<br>`;
@@ -857,7 +997,7 @@
           // Set correct title based on document type
           const docTitle = docType === "receipt" ? "RECEIPT" : "INVOICE";
           const docNumberLabel =
-            docType === "receipt" ? "Receipt No." : "Invoice No.";
+            docType === "receipt" ? "Receipt No" : "Invoice No";
 
           const dueHtml =
             docType === "invoice" && dueDate
@@ -867,7 +1007,7 @@
           let itemsHtml = "";
           const total = products.reduce((sum, p) => sum + p.itemTotal, 0);
 
-          products.forEach((p) => {
+          products.forEach((p, index) => {
             itemsHtml += `<tr>
       <td style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">${escapeHtml(
               p.name
@@ -886,11 +1026,9 @@
 
           const output = document.getElementById("invoiceOutput");
           output.innerHTML = `
-    <div style="font-family:${fontFamily};color:${textColor};max-width:900px;margin:auto;padding:20px;background:${bgColor};">
+    <div style="font-family:${fontFamily};color:${textColor};max-width:900px;margin:auto;padding:20px;background:${bgColor};min-height:100vh;">
       ${logoHtml}
-      <h2 style="color:${headerColor};text-align:center;font-size:${headerSize};">${escapeHtml(
-            business
-          )}</h2>
+      ${businessDetails}
       <h1 style="text-align:center;color:${textColor};font-weight:bold;font-size:${headerSize};">${docTitle}</h1>
       <table width="100%" style="margin-bottom:20px;border:${borderWidth} ${borderStyle} ${borderColor};">
         <tr>
@@ -925,11 +1063,11 @@
         </tfoot>
       </table>
       <p style="text-align:center;margin-top:30px;font-style:italic;color:#666;">
-        Generated by: ${escapeHtml(generatedBy)}<br>
+        Document Created By: ${escapeHtml(generatedBy)}<br>
         Date: ${issueDate}
       </p>
       <p style="text-align:center;margin-top:10px;font-size:0.9em;color:#666;">
-        Thank you for your trust and business!
+        ${thankYouMessage}
       </p>
     </div>
   `;
@@ -950,13 +1088,23 @@
       // Download PDF button using html2pdf.js
       document.getElementById("downloadPdf").onclick = function () {
         const invoice = document.getElementById("invoiceOutput");
+        const bgColor = document.getElementById("bgColor").value || "#ffffff";
+
         const opt = {
           margin: 0,
           filename: "document.pdf",
           image: { type: "jpeg", quality: 0.98 },
           html2canvas: { scale: 2 },
           jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+          pagebreak: { mode: ["avoid-all", "css", "legacy"] },
         };
+
+        // Apply background color to the container
+        const container = document.querySelector("#invoiceOutput");
+        if (container) {
+          container.style.background = bgColor;
+        }
+
         html2pdf().set(opt).from(invoice).save();
       };
 
@@ -971,6 +1119,16 @@
         if (window.formValues) {
           document.getElementById("businessName").value =
             window.formValues.businessName || "";
+          document.getElementById("businessSlogan").value =
+            window.formValues.businessSlogan || "";
+          document.getElementById("businessAddress1").value =
+            window.formValues.businessAddress1 || "";
+          document.getElementById("businessAddress2").value =
+            window.formValues.businessAddress2 || "";
+          document.getElementById("businessPhone").value =
+            window.formValues.businessPhone || "";
+          document.getElementById("businessEmail").value =
+            window.formValues.businessEmail || "";
           document.getElementById("customerName").value =
             window.formValues.customerName || "";
           document.getElementById("customerEmail").value =
@@ -989,6 +1147,9 @@
             window.formValues.dueDate || "";
           document.getElementById("generatedBy").value =
             window.formValues.generatedBy || "";
+          document.getElementById("thankYouMessage").value =
+            window.formValues.thankYouMessage ||
+            "Thank you for your trust and business!";
 
           // Restore logo if exists
           if (window.formValues.logoSrc) {
