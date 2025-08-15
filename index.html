@@ -108,7 +108,6 @@
         border: 1px solid #c3e6cb;
         font-weight: bold;
       }
-
       /* Customization Panel */
       .customization-panel {
         background: #f1f8ff;
@@ -117,25 +116,21 @@
         margin: 25px 0;
         border: 1px solid #d1e7ff;
       }
-
       .customization-section {
         margin-bottom: 20px;
       }
-
       .customization-section h3 {
         margin-top: 0;
         color: #2c3e50;
         border-bottom: 2px solid #3498db;
         padding-bottom: 5px;
       }
-
       .customization-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 15px;
         margin-top: 15px;
       }
-
       .style-option {
         border: 2px solid #ddd;
         border-radius: 8px;
@@ -145,18 +140,15 @@
         text-align: center;
         background: white;
       }
-
       .style-option:hover {
         transform: translateY(-5px);
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       }
-
       .style-option.selected {
         border-color: #3498db;
         background-color: #e1f0fa;
         box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
       }
-
       .style-preview {
         height: 100px;
         margin-bottom: 10px;
@@ -167,31 +159,26 @@
         font-weight: bold;
         color: white;
       }
-
       .style-name {
         font-size: 14px;
         font-weight: 600;
       }
-
       .customization-description {
         font-size: 13px;
         color: #7f8c8d;
         margin-top: 5px;
         font-style: italic;
       }
-
       /* Color picker container */
       .color-picker-container {
         display: flex;
         align-items: center;
         gap: 10px;
       }
-
       .color-picker-wrapper {
         position: relative;
         width: 50px;
       }
-
       .color-reset-btn {
         background: #e74c3c;
         color: white;
@@ -201,11 +188,9 @@
         cursor: pointer;
         font-size: 12px;
       }
-
       .color-reset-btn:hover {
         background: #c0392b;
       }
-
       /* Back Button */
       .back-button {
         background: #95a5a6;
@@ -219,15 +204,12 @@
         display: inline-flex;
         align-items: center;
       }
-
       .back-button:hover {
         background: #7f8c8d;
       }
-
       .back-button i {
         margin-right: 5px;
       }
-
       /* Remove Button */
       .remove-btn {
         background: #e74c3c;
@@ -239,11 +221,9 @@
         font-size: 12px;
         margin-left: 5px;
       }
-
       .remove-btn:hover {
         background: #c0392b;
       }
-
       /* Print Styles */
       @media print {
         body * {
@@ -319,7 +299,6 @@
             </select>
           </div>
         </div>
-
         <div>
           <h3>📬 Customer Details</h3>
           <div class="form-group">
@@ -421,6 +400,41 @@
         </div>
       </div>
 
+      <!-- Bank Details Section (Only for Invoice) -->
+      <div
+        id="bankDetailsSection"
+        style="
+          display: none;
+          background: #f8f9fa;
+          padding: 20px;
+          border-radius: 8px;
+          margin: 20px 0;
+        "
+      >
+        <h3>🏦 Payment (Bank) Details</h3>
+        <p>
+          <strong>Enter your bank account information for invoices.</strong>
+        </p>
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Account Name</label>
+            <input type="text" id="accountName" placeholder="John Doe" />
+          </div>
+          <div class="form-group">
+            <label>Account Number</label>
+            <input type="text" id="accountNumber" placeholder="1234567890" />
+          </div>
+          <div class="form-group">
+            <label>Bank Name</label>
+            <input
+              type="text"
+              id="bankName"
+              placeholder="First Bank of Nigeria"
+            />
+          </div>
+        </div>
+      </div>
+
       <!-- Add Product -->
       <div style="background: #f8f9fa; padding: 20px; border-radius: 8px">
         <h3>➕ Add Item</h3>
@@ -479,10 +493,7 @@
         <div class="customization-section">
           <h3>Style Presets</h3>
           <p>Select a professional style for your document:</p>
-
-          <div class="customization-grid" id="styleOptions">
-            <!-- Style options will be inserted here by JavaScript -->
-          </div>
+          <div class="customization-grid" id="styleOptions"></div>
           <button
             id="clearStyles"
             style="
@@ -502,7 +513,6 @@
         <div class="customization-section">
           <h3>Color Customization</h3>
           <p>Customize specific elements of your document</p>
-
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px">
             <div>
               <label>Header Color</label>
@@ -601,7 +611,6 @@
         <div class="customization-section">
           <h3>Typography</h3>
           <p>Choose fonts that match your brand style</p>
-
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px">
             <div>
               <label>Font Family</label>
@@ -640,7 +649,6 @@
         <div class="customization-section">
           <h3>Border Style</h3>
           <p>Customize the appearance of table and element borders</p>
-
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px">
             <div>
               <label>Border Width</label>
@@ -697,7 +705,7 @@
       </div>
     </div>
 
-    <!-- Print / PDF Section outside appUI -->
+    <!-- Print / PDF Section -->
     <div class="action-buttons" id="printSection" style="display: none">
       <div class="info-box">
         🎉 Your document is ready! Click below to print or download as PDF.
@@ -719,9 +727,8 @@
     <script>
       let products = [];
       let logoSrc = "";
-      let selectedStyle = -1; // -1 means no selection
+      let selectedStyle = -1;
 
-      // Professional style options
       const styles = [
         {
           name: "Classic Blue",
@@ -821,85 +828,88 @@
         },
       ];
 
-      // Initialize style options
       function initStyleOptions() {
         const container = document.getElementById("styleOptions");
         container.innerHTML = "";
-
         styles.forEach((style, index) => {
           const option = document.createElement("div");
           option.className = "style-option";
           if (index === selectedStyle) option.classList.add("selected");
-
           option.innerHTML = `
-      <div class="style-preview" style="background: linear-gradient(135deg, ${style.primary}, ${style.secondary}); color: ${style.secondary}; background-color: ${style.background}">
-        ${style.name}
-      </div>
-      <div class="style-name">${style.name}</div>
-    `;
-
+            <div class="style-preview" style="background: linear-gradient(135deg, ${style.primary}, ${style.secondary}); color: ${style.secondary}; background-color: ${style.background}">
+              ${style.name}
+            </div>
+            <div class="style-name">${style.name}</div>
+          `;
           option.addEventListener("click", () => {
-            // Toggle selection
             if (selectedStyle === index) {
-              selectedStyle = -1; // Deselect
+              selectedStyle = -1;
               option.classList.remove("selected");
               return;
             }
-
-            // Remove selected class from all options
-            document.querySelectorAll(".style-option").forEach((el) => {
-              el.classList.remove("selected");
-            });
-
-            // Add selected class to clicked option
+            document
+              .querySelectorAll(".style-option")
+              .forEach((el) => el.classList.remove("selected"));
             option.classList.add("selected");
             selectedStyle = index;
-
-            // Apply the style
             document.getElementById("headerColor").value = style.primary;
             document.getElementById("textColor").value = style.secondary;
             document.getElementById("accentColor").value = style.accent;
             document.getElementById("bgColor").value = style.background;
             document.getElementById("fontFamily").value = style.font;
           });
-
           container.appendChild(option);
         });
       }
 
-      // Reset all color pickers to their defaults
-      function resetAllColorPickers() {
-        document.querySelectorAll(".color-reset-btn").forEach((btn) => {
-          const target = btn.getAttribute("data-target");
-          const defaultValue = btn.getAttribute("data-default");
-          document.getElementById(target).value = defaultValue;
-        });
-      }
-
-      // Clear style selection
       document
         .getElementById("clearStyles")
         .addEventListener("click", function () {
           selectedStyle = -1;
-          document.querySelectorAll(".style-option").forEach((el) => {
-            el.classList.remove("selected");
-          });
+          document
+            .querySelectorAll(".style-option")
+            .forEach((el) => el.classList.remove("selected"));
         });
 
-      // Add event listeners for color reset buttons
       document.querySelectorAll(".color-reset-btn").forEach((btn) => {
         btn.addEventListener("click", function () {
           const target = this.getAttribute("data-target");
           const defaultValue = this.getAttribute("data-default");
           document.getElementById(target).value = defaultValue;
-
-          // When manually resetting a color, deselect any style preset
           selectedStyle = -1;
-          document.querySelectorAll(".style-option").forEach((el) => {
-            el.classList.remove("selected");
-          });
+          document
+            .querySelectorAll(".style-option")
+            .forEach((el) => el.classList.remove("selected"));
         });
       });
+
+      // Toggle bank details visibility
+      function toggleBankDetails() {
+        const docType = document.getElementById("docType").value;
+        const bankSection = document.getElementById("bankDetailsSection");
+        bankSection.style.display = docType === "invoice" ? "block" : "none";
+      }
+
+      document
+        .getElementById("docType")
+        .addEventListener("change", toggleBankDetails);
+
+      // Logo Preview
+      document
+        .getElementById("logoUpload")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              logoSrc = event.target.result;
+              const img = document.getElementById("logoPreview");
+              img.src = logoSrc;
+              img.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+          }
+        });
 
       // Add Product
       document
@@ -910,12 +920,10 @@
           const price = parseFloat(
             document.getElementById("productPrice").value
           );
-
           if (!name || isNaN(qty) || qty <= 0 || isNaN(price) || price < 0) {
             alert("Please fill all fields correctly.");
             return;
           }
-
           const itemTotal = qty * price;
           products.push({ name, qty, price, itemTotal });
           updateProductList();
@@ -929,11 +937,12 @@
         products.forEach((p, index) => {
           const tr = document.createElement("tr");
           tr.innerHTML = `
-      <td>${escapeHtml(p.name)}</td>
-      <td>${p.qty}</td>
-      <td>${getCurrency()}${p.price.toFixed(2)}</td>
-      <td>${getCurrency()}${p.itemTotal.toFixed(2)}</td>
-      <td><button class="remove-btn" data-index="${index}">Remove</button></td>`;
+            <td>${escapeHtml(p.name)}</td>
+            <td>${p.qty}</td>
+            <td>${getCurrency()}${p.price.toFixed(2)}</td>
+            <td>${getCurrency()}${p.itemTotal.toFixed(2)}</td>
+            <td><button class="remove-btn" data-index="${index}">Remove</button></td>
+          `;
           tbody.appendChild(tr);
           total += p.itemTotal;
         });
@@ -941,7 +950,6 @@
           "totalAmount"
         ).textContent = `${getCurrency()}${total.toFixed(2)}`;
 
-        // Add event listeners to remove buttons
         document.querySelectorAll(".remove-btn").forEach((button) => {
           button.addEventListener("click", function () {
             const index = parseInt(this.getAttribute("data-index"));
@@ -969,24 +977,6 @@
         return document.getElementById("currencySelect").value;
       }
 
-      // Logo Preview
-      document
-        .getElementById("logoUpload")
-        .addEventListener("change", function (e) {
-          const file = e.target.files[0];
-          if (file) {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-              logoSrc = event.target.result;
-              const img = document.getElementById("logoPreview");
-              img.src = logoSrc;
-              img.style.display = "block";
-            };
-            reader.readAsDataURL(file);
-          }
-        });
-
-      // Format Date
       function formatDate(dateStr) {
         if (!dateStr) return null;
         return new Date(dateStr).toLocaleDateString("en-NG", {
@@ -1006,7 +996,6 @@
             return;
           }
 
-          // Store current form values for potential editing
           window.formValues = {
             businessName: document.getElementById("businessName").value,
             businessSlogan: document.getElementById("businessSlogan").value,
@@ -1028,9 +1017,11 @@
             products: [...products],
             selectedStyle: selectedStyle,
             thankYouMessage: document.getElementById("thankYouMessage").value,
+            accountName: document.getElementById("accountName").value,
+            accountNumber: document.getElementById("accountNumber").value,
+            bankName: document.getElementById("bankName").value,
           };
 
-          // Get customization values
           const borderColor =
             document.getElementById("borderColor").value || "#000000";
           const headerColor =
@@ -1056,7 +1047,6 @@
           const thankYouMessage =
             document.getElementById("thankYouMessage").value ||
             "Thank you for your trust in building your software.";
-
           const business =
             document.getElementById("businessName").value || "Your Business";
           const businessSlogan =
@@ -1078,7 +1068,7 @@
           const customerAddress =
             document.getElementById("customerAddress").value || "";
           const generatedBy =
-            document.getElementById("generatedBy").value || "Authorized Person";
+            document.getElementById("generatedBy").value || "";
           const currency = getCurrency();
           const docType = document.getElementById("docType").value;
           const invoiceNumber =
@@ -1091,7 +1081,6 @@
             day: "numeric",
           });
 
-          // Handle logo positioning
           let logoHtml = "";
           if (logoSrc) {
             const logoAlign = document.getElementById("logoAlign").value;
@@ -1101,34 +1090,22 @@
                 : logoAlign === "center"
                 ? "text-align:center;"
                 : "text-align:right;";
-
-            logoHtml = `<div style="${alignmentStyle}margin-bottom:15px;">
-      <img src="${logoSrc}" style="max-width:180px;border-radius:8px;">
-    </div>`;
+            logoHtml = `<div style="${alignmentStyle}margin-bottom:15px;"><img src="${logoSrc}" style="max-width:180px;border-radius:8px;"></div>`;
           }
 
-          // Build business details
-          let businessDetails = "";
-
-          // Business name as H1
-          businessDetails += `<h1 style="text-align:center;margin:0;color:${headerColor};">${escapeHtml(
+          let businessDetails = `<h1 style="text-align:center;margin:0;color:${headerColor};">${escapeHtml(
             business
           )}</h1>`;
-
-          // Business slogan if exists
           if (businessSlogan) {
             businessDetails += `<p style="text-align:center;margin:5px 0;font-style:italic;color:${textColor};">${escapeHtml(
               businessSlogan
             )}</p>`;
           }
-
-          // Business address details
           let addressParts = [];
           if (businessAddress1) addressParts.push(escapeHtml(businessAddress1));
           if (businessAddress2) addressParts.push(escapeHtml(businessAddress2));
           if (businessPhone) addressParts.push(escapeHtml(businessPhone));
           if (businessEmail) addressParts.push(escapeHtml(businessEmail));
-
           if (addressParts.length > 0) {
             businessDetails += `<p style="text-align:center;margin:5px 0;color:${textColor};">${addressParts.join(
               " | "
@@ -1141,83 +1118,120 @@
           if (customerEmail) customerHtml += `${escapeHtml(customerEmail)}<br>`;
           if (customerPhone) customerHtml += `${escapeHtml(customerPhone)}<br>`;
 
-          // Set correct title based on document type
           const docTitle = docType === "receipt" ? "RECEIPT" : "INVOICE";
           const docNumberLabel =
             docType === "receipt" ? "Receipt No" : "Invoice No";
-
           const dueHtml =
             docType === "invoice" && dueDate
               ? `<p><strong>Due Date:</strong> ${dueDate}</p>`
               : "";
 
+          // Bank details (only for invoice)
+          let bankHtml = "";
+          if (docType === "invoice") {
+            const accountName =
+              document.getElementById("accountName").value || "";
+            const accountNumber =
+              document.getElementById("accountNumber").value || "";
+            const bankName = document.getElementById("bankName").value || "";
+            if (accountName || accountNumber || bankName) {
+              bankHtml = `
+              <p><strong>Pay To:</strong></p>
+              <p>
+                ${
+                  accountName
+                    ? `<strong>Account Name:</strong> ${escapeHtml(
+                        accountName
+                      )}<br>`
+                    : ""
+                }
+                ${
+                  accountNumber
+                    ? `<strong>Account Number:</strong> ${escapeHtml(
+                        accountNumber
+                      )}<br>`
+                    : ""
+                }
+                ${
+                  bankName
+                    ? `<strong>Bank Name:</strong> ${escapeHtml(bankName)}<br>`
+                    : ""
+                }
+              </p>
+            `;
+            }
+          }
+
           let itemsHtml = "";
           const total = products.reduce((sum, p) => sum + p.itemTotal, 0);
-
           products.forEach((p, index) => {
             itemsHtml += `<tr>
-      <td style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">${escapeHtml(
+            <td style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">${escapeHtml(
               p.name
             )}</td>
-      <td style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">${
+            <td style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">${
               p.qty
             }</td>
-      <td style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">${currency}${p.price.toFixed(
+            <td style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">${currency}${p.price.toFixed(
               2
             )}</td>
-      <td style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">${currency}${p.itemTotal.toFixed(
+            <td style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">${currency}${p.itemTotal.toFixed(
               2
             )}</td>
-    </tr>`;
+          </tr>`;
           });
 
           const output = document.getElementById("invoiceOutput");
           output.innerHTML = `
-    <div style="font-family:${fontFamily};color:${textColor};max-width:900px;margin:auto;padding:20px;background:${bgColor};min-height:100vh;">
-      ${logoHtml}
-      ${businessDetails}
-      <h1 style="text-align:center;color:${headerColor};font-weight:bold;font-size:${headerSize};">${docTitle}</h1>
-      <table width="100%" style="margin-bottom:20px;border:${borderWidth} ${borderStyle} ${borderColor};">
-        <tr>
-          <td width="50%">
-            <strong style="color:${textColor};">${docNumberLabel}:</strong> ${escapeHtml(
+          <div style="font-family:${fontFamily};color:${textColor};max-width:900px;margin:auto;padding:20px;background:${bgColor};min-height:100vh;">
+            ${logoHtml}
+            ${businessDetails}
+            <h1 style="text-align:center;color:${headerColor};font-weight:bold;font-size:${headerSize};">${docTitle}</h1>
+            <table width="100%" style="margin-bottom:20px;border-collapse:collapse;border:${borderWidth} ${borderStyle} ${borderColor};">
+              <tr>
+                <td width="50%" style="border:${borderWidth} ${borderStyle} ${borderColor}; padding:14px;">
+                  <strong style="color:${textColor};">${docNumberLabel}:</strong> ${escapeHtml(
             invoiceNumber
           )}<br>
-            <strong style="color:${textColor};">Date:</strong> ${issueDate}<br>${dueHtml}
-          </td>
-          <td width="50%" style="text-align:right;">
-            <strong style="color:${textColor};">Billed To:</strong><br>${customerHtml}
-          </td>
-        </tr>
-      </table>
-      <table style="width:100%;border-collapse:collapse;border:${borderWidth} ${borderStyle} ${borderColor};">
-        <thead>
-          <tr style="background:${headerColor};color:white;">
-            <th style="padding:14px;border:${borderWidth} ${borderStyle} ${headerColor};">Item</th>
-            <th style="padding:14px;border:${borderWidth} ${borderStyle} ${headerColor};">Qty</th>
-            <th style="padding:14px;border:${borderWidth} ${borderStyle} ${headerColor};">Unit Price</th>
-            <th style="padding:14px;border:${borderWidth} ${borderStyle} ${headerColor};">Total</th>
-          </tr>
-        </thead>
-        <tbody>${itemsHtml}</tbody>
-        <tfoot>
-          <tr>
-            <td colspan="3" style="text-align:right;font-weight:bold;font-size:1.3em;padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">Total:</td>
-            <td style="font-weight:bold;font-size:1.4em;padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};color:${accentColor};">${currency}${total.toFixed(
+                  <strong style="color:${textColor};">Date:</strong> ${issueDate}<br>${dueHtml}${bankHtml}
+                </td>
+                <td width="50%" style="border:${borderWidth} ${borderStyle} ${borderColor}; padding:14px; text-align:right;">
+                  <strong style="color:${textColor};">Billed To:</strong><br>${customerHtml}
+                </td>
+              </tr>
+            </table>
+            <table style="width:100%;border-collapse:collapse;border:${borderWidth} ${borderStyle} ${borderColor};">
+              <thead>
+                <tr style="background:${headerColor};color:white;">
+                  <th style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">Item</th>
+                  <th style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">Qty</th>
+                  <th style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">Unit Price</th>
+                  <th style="padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">Total</th>
+                </tr>
+              </thead>
+              <tbody>${itemsHtml}</tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3" style="text-align:right;font-weight:bold;font-size:1.3em;padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};">Total:</td>
+                  <td style="font-weight:bold;font-size:1.4em;padding:14px;border:${borderWidth} ${borderStyle} ${borderColor};color:${accentColor};">${currency}${total.toFixed(
             2
           )}</td>
-          </tr>
-        </tfoot>
-      </table>
-      <p style="text-align:center;margin-top:30px;font-style:italic;color:${textColor};">
-        Document Created By: ${escapeHtml(generatedBy)}<br>
-        Date: ${issueDate}
-      </p>
-      <p style="text-align:center;margin-top:10px;font-size:0.9em;color:${textColor};">
-        ${thankYouMessage}
-      </p>
-    </div>
-  `;
+                </tr>
+              </tfoot>
+            </table>
+            ${
+              generatedBy
+                ? `<p style="text-align:center;margin-top:30px;font-style:italic;color:${textColor};">
+              Document Created By: ${escapeHtml(generatedBy)}<br>
+              Date: ${issueDate}
+            </p>`
+                : ""
+            }
+            <p style="text-align:center;margin-top:10px;font-size:0.9em;color:${textColor};">
+              ${thankYouMessage}
+            </p>
+          </div>
+        `;
 
           document.getElementById("appUI").style.display = "none";
           document.getElementById("invoiceOutput").style.display = "block";
@@ -1232,17 +1246,14 @@
         window.print();
       };
 
-      // Download PDF button using html2pdf.js
+      // Download PDF button
       document.getElementById("downloadPdf").onclick = function () {
         const invoice = document.getElementById("invoiceOutput");
         const bgColor =
           document.getElementById("bgColor").value ||
           (selectedStyle !== -1 ? styles[selectedStyle].background : "#ffffff");
-
-        // Temporarily apply full-height background
         invoice.style.minHeight = "100vh";
         invoice.style.background = bgColor;
-
         const opt = {
           margin: 0,
           filename: "document.pdf",
@@ -1255,26 +1266,23 @@
           jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
           pagebreak: { mode: ["avoid-all", "css", "legacy"] },
         };
-
         html2pdf()
           .set(opt)
           .from(invoice)
           .save()
           .then(() => {
-            // Reset styles after PDF generation
             invoice.style.minHeight = "";
             invoice.style.background = "";
           });
       };
 
-      // New document button
+      // New document
       document.getElementById("newInvoice").onclick = function () {
         location.reload();
       };
 
-      // Back to edit button
+      // Back to edit
       document.getElementById("backToEdit").onclick = function () {
-        // Restore form values
         if (window.formValues) {
           document.getElementById("businessName").value =
             window.formValues.businessName || "";
@@ -1309,8 +1317,13 @@
           document.getElementById("thankYouMessage").value =
             window.formValues.thankYouMessage ||
             "Thank you for your trust in building your software.";
+          document.getElementById("accountName").value =
+            window.formValues.accountName || "";
+          document.getElementById("accountNumber").value =
+            window.formValues.accountNumber || "";
+          document.getElementById("bankName").value =
+            window.formValues.bankName || "";
 
-          // Restore logo if exists
           if (window.formValues.logoSrc) {
             logoSrc = window.formValues.logoSrc;
             const img = document.getElementById("logoPreview");
@@ -1324,16 +1337,13 @@
             document.getElementById("logoAlign").value = "left";
           }
 
-          // Restore products
           products = [...window.formValues.products];
           updateProductList();
-
-          // Restore style selection
           selectedStyle = window.formValues.selectedStyle;
           initStyleOptions();
+          toggleBankDetails(); // Update bank section visibility
         }
 
-        // Show the form again
         document.getElementById("invoiceOutput").style.display = "none";
         document.getElementById("appUI").style.display = "block";
         document.getElementById("printSection").style.display = "none";
@@ -1342,6 +1352,7 @@
       // Initialize the page
       window.onload = function () {
         initStyleOptions();
+        toggleBankDetails(); // Initial check
       };
     </script>
   </body>
