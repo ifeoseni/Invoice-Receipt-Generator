@@ -186,11 +186,12 @@
         align-items: center;
         gap: 10px;
       }
-      
+
       .color-picker-wrapper {
         position: relative;
+        width: 50px;
       }
-      
+
       .color-reset-btn {
         background: #e74c3c;
         color: white;
@@ -200,7 +201,7 @@
         cursor: pointer;
         font-size: 12px;
       }
-      
+
       .color-reset-btn:hover {
         background: #c0392b;
       }
@@ -276,7 +277,10 @@
   </head>
   <body>
     <!-- This will be printed -->
-    <div id="invoiceOutput" style="display: none; width: 100%; min-height: 100vh;"></div>
+    <div
+      id="invoiceOutput"
+      style="display: none; width: 100%; min-height: 100vh"
+    ></div>
 
     <!-- Main App -->
     <div id="appUI" class="container">
@@ -506,7 +510,13 @@
                 <div class="color-picker-wrapper">
                   <input type="color" id="headerColor" value="#3498db" />
                 </div>
-                <button class="color-reset-btn" data-target="headerColor" data-default="#3498db">Reset</button>
+                <button
+                  class="color-reset-btn"
+                  data-target="headerColor"
+                  data-default="#3498db"
+                >
+                  Reset
+                </button>
               </div>
               <div class="customization-description">
                 Changes the color of document headers and titles
@@ -518,7 +528,13 @@
                 <div class="color-picker-wrapper">
                   <input type="color" id="textColor" value="#2c3e50" />
                 </div>
-                <button class="color-reset-btn" data-target="textColor" data-default="#2c3e50">Reset</button>
+                <button
+                  class="color-reset-btn"
+                  data-target="textColor"
+                  data-default="#2c3e50"
+                >
+                  Reset
+                </button>
               </div>
               <div class="customization-description">
                 Sets the main text color throughout the document
@@ -530,7 +546,13 @@
                 <div class="color-picker-wrapper">
                   <input type="color" id="accentColor" value="#1a3a6e" />
                 </div>
-                <button class="color-reset-btn" data-target="accentColor" data-default="#1a3a6e">Reset</button>
+                <button
+                  class="color-reset-btn"
+                  data-target="accentColor"
+                  data-default="#1a3a6e"
+                >
+                  Reset
+                </button>
               </div>
               <div class="customization-description">
                 Used for important elements like totals and highlights
@@ -542,7 +564,13 @@
                 <div class="color-picker-wrapper">
                   <input type="color" id="bgColor" value="#ffffff" />
                 </div>
-                <button class="color-reset-btn" data-target="bgColor" data-default="#ffffff">Reset</button>
+                <button
+                  class="color-reset-btn"
+                  data-target="bgColor"
+                  data-default="#ffffff"
+                >
+                  Reset
+                </button>
               </div>
               <div class="customization-description">
                 Changes the overall document background color
@@ -554,7 +582,13 @@
                 <div class="color-picker-wrapper">
                   <input type="color" id="borderColor" value="#000000" />
                 </div>
-                <button class="color-reset-btn" data-target="borderColor" data-default="#000000">Reset</button>
+                <button
+                  class="color-reset-btn"
+                  data-target="borderColor"
+                  data-default="#000000"
+                >
+                  Reset
+                </button>
               </div>
               <div class="customization-description">
                 Sets the color of all document borders
@@ -784,7 +818,7 @@
           accent: "#3498db",
           background: "#ffffff",
           font: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-        }
+        },
       ];
 
       // Initialize style options
@@ -835,9 +869,9 @@
 
       // Reset all color pickers to their defaults
       function resetAllColorPickers() {
-        document.querySelectorAll('.color-reset-btn').forEach(btn => {
-          const target = btn.getAttribute('data-target');
-          const defaultValue = btn.getAttribute('data-default');
+        document.querySelectorAll(".color-reset-btn").forEach((btn) => {
+          const target = btn.getAttribute("data-target");
+          const defaultValue = btn.getAttribute("data-default");
           document.getElementById(target).value = defaultValue;
         });
       }
@@ -853,12 +887,12 @@
         });
 
       // Add event listeners for color reset buttons
-      document.querySelectorAll('.color-reset-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const target = this.getAttribute('data-target');
-          const defaultValue = this.getAttribute('data-default');
+      document.querySelectorAll(".color-reset-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const target = this.getAttribute("data-target");
+          const defaultValue = this.getAttribute("data-default");
           document.getElementById(target).value = defaultValue;
-          
+
           // When manually resetting a color, deselect any style preset
           selectedStyle = -1;
           document.querySelectorAll(".style-option").forEach((el) => {
@@ -906,12 +940,12 @@
         document.getElementById(
           "totalAmount"
         ).textContent = `${getCurrency()}${total.toFixed(2)}`;
-        
+
         // Add event listeners to remove buttons
-        document.querySelectorAll('.remove-btn').forEach(button => {
-          button.addEventListener('click', function() {
-            const index = parseInt(this.getAttribute('data-index'));
-            if (confirm('Are you sure you want to remove this item?')) {
+        document.querySelectorAll(".remove-btn").forEach((button) => {
+          button.addEventListener("click", function () {
+            const index = parseInt(this.getAttribute("data-index"));
+            if (confirm("Are you sure you want to remove this item?")) {
               products.splice(index, 1);
               updateProductList();
             }
@@ -1010,9 +1044,11 @@
           const accentColor =
             document.getElementById("accentColor").value ||
             (selectedStyle !== -1 ? styles[selectedStyle].accent : "#1a3a6e");
-          const bgColor = 
+          const bgColor =
             document.getElementById("bgColor").value ||
-            (selectedStyle !== -1 ? styles[selectedStyle].background : "#ffffff");
+            (selectedStyle !== -1
+              ? styles[selectedStyle].background
+              : "#ffffff");
           const fontFamily = document.getElementById("fontFamily").value;
           const headerSize = document.getElementById("headerSize").value;
           const borderWidth = document.getElementById("borderWidth").value;
@@ -1073,15 +1109,19 @@
 
           // Build business details
           let businessDetails = "";
-          
+
           // Business name as H1
-          businessDetails += `<h1 style="text-align:center;margin:0;color:${headerColor};">${escapeHtml(business)}</h1>`;
-          
+          businessDetails += `<h1 style="text-align:center;margin:0;color:${headerColor};">${escapeHtml(
+            business
+          )}</h1>`;
+
           // Business slogan if exists
           if (businessSlogan) {
-            businessDetails += `<p style="text-align:center;margin:5px 0;font-style:italic;color:${textColor};">${escapeHtml(businessSlogan)}</p>`;
+            businessDetails += `<p style="text-align:center;margin:5px 0;font-style:italic;color:${textColor};">${escapeHtml(
+              businessSlogan
+            )}</p>`;
           }
-          
+
           // Business address details
           let addressParts = [];
           if (businessAddress1) addressParts.push(escapeHtml(businessAddress1));
@@ -1090,7 +1130,9 @@
           if (businessEmail) addressParts.push(escapeHtml(businessEmail));
 
           if (addressParts.length > 0) {
-            businessDetails += `<p style="text-align:center;margin:5px 0;color:${textColor};">${addressParts.join(" | ")}</p>`;
+            businessDetails += `<p style="text-align:center;margin:5px 0;color:${textColor};">${addressParts.join(
+              " | "
+            )}</p>`;
           }
 
           let customerHtml = `<strong>${escapeHtml(customerName)}</strong><br>`;
@@ -1193,31 +1235,36 @@
       // Download PDF button using html2pdf.js
       document.getElementById("downloadPdf").onclick = function () {
         const invoice = document.getElementById("invoiceOutput");
-        const bgColor = document.getElementById("bgColor").value || 
-                       (selectedStyle !== -1 ? styles[selectedStyle].background : "#ffffff");
-        
+        const bgColor =
+          document.getElementById("bgColor").value ||
+          (selectedStyle !== -1 ? styles[selectedStyle].background : "#ffffff");
+
         // Temporarily apply full-height background
         invoice.style.minHeight = "100vh";
         invoice.style.background = bgColor;
-        
+
         const opt = {
           margin: 0,
           filename: "document.pdf",
           image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { 
+          html2canvas: {
             scale: 2,
             backgroundColor: bgColor,
-            useCORS: true
+            useCORS: true,
           },
           jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+          pagebreak: { mode: ["avoid-all", "css", "legacy"] },
         };
-        
-        html2pdf().set(opt).from(invoice).save().then(() => {
-          // Reset styles after PDF generation
-          invoice.style.minHeight = "";
-          invoice.style.background = "";
-        });
+
+        html2pdf()
+          .set(opt)
+          .from(invoice)
+          .save()
+          .then(() => {
+            // Reset styles after PDF generation
+            invoice.style.minHeight = "";
+            invoice.style.background = "";
+          });
       };
 
       // New document button
